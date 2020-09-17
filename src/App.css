@@ -24,12 +24,19 @@ cloud:  background: linear-gradient(to right, #2193b0, #6dd5ed);
 .mainDiv{
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
   background-image: url("https://cdn.dribbble.com/users/5652712/screenshots/12738615/media/a1c6db890af1a4a140c79c963cc59693.jpg");
-  background-color: rgba(0, 0, 0, 0.26);
+  background-color: rgba(0, 0, 0, 0.301);
   background-blend-mode: darken;
   background-size: cover;
   width: 1200px;
   height: 700px;
   border-radius:25px;
+}
+.test{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .input{
@@ -37,44 +44,70 @@ cloud:  background: linear-gradient(to right, #2193b0, #6dd5ed);
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 .searchBar{
+  background-color: rgba(230, 228, 225, 0.219);
   text-align: center;
   font-size: 30px;
-  margin: 5px;
   width: 650px;
   height: 40px;
   border-radius: 5px;
   border: none;
+  color: white;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.26);
+
+}
+.searchBar::placeholder{
+  color: rgb(255, 255, 255);
+  opacity: 70%;
+}
+.searchSvg{
+  width: 25px;
+  transform: scaleX(-1);
+  filter: invert(1);
+  opacity: 60%;
+  margin-left:-30px ;
 }
 
 .mainInfo{
   color: white;
   display:flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .mainInfoTL{
-  width: 550px;
-  height: 400px;
-  /* margin-top: 65px;
-  margin-left: 150px; */
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.26);
+  margin: 50px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  background-color: rgba(230, 228, 225, 0.082);
+  border-radius: 15px;
+  width: 350px;
+  height: 350px;
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: black;  */
+
 }
 .mainInfoTR{
-  width: 550px;
-  height: 400px;
-  /* margin-top: 20px;
-  margin-right: 150px; */
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.26);
+  margin: 50px;
+  margin-right: 100px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  background-color: rgba(230, 228, 225, 0.082);
+  border-radius: 15px;
+  width: 350px;
+  height: 350px;
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: black;  */
+
   
 }
 .svg{
@@ -90,4 +123,16 @@ cloud:  background: linear-gradient(to right, #2193b0, #6dd5ed);
 }
 .infoMinMax{
   font-size:45px;
+}
+
+.hourlyDiv{
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px
+}
+
+img{
+  filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.733));
 }
