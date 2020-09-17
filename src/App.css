@@ -1,38 +1,93 @@
+/* 
+sunrise  background: linear-gradient(to right, #ff512f, #f09819);
+night:   background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+cloud:  background: linear-gradient(to right, #2193b0, #6dd5ed);
+*/
+
+
+
+
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.background{
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-blend-mode: darken;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.mainDiv{
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+  background-image: url("https://cdn.dribbble.com/users/5652712/screenshots/12738615/media/a1c6db890af1a4a140c79c963cc59693.jpg");
+  background-color: rgba(0, 0, 0, 0.26);
+  background-blend-mode: darken;
+  background-size: cover;
+  width: 1200px;
+  height: 700px;
+  border-radius:25px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input{
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.searchBar{
+  text-align: center;
+  font-size: 30px;
+  margin: 5px;
+  width: 650px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+}
+
+.mainInfo{
+  color: white;
+  display:flex;
+  justify-content: space-between;
+}
+
+.mainInfoTL{
+  width: 550px;
+  height: 400px;
+  /* margin-top: 65px;
+  margin-left: 150px; */
+  display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* background-color: black;  */
+}
+.mainInfoTR{
+  width: 550px;
+  height: 400px;
+  /* margin-top: 20px;
+  margin-right: 150px; */
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: black;  */
+  
+}
+.svg{
+  width: 120px;
+}
+.date, .cityName, .weatherDesc,.infoTemperature,.infoMinMax{
+  margin: 0px;
 }
 
-.App-link {
-  color: #61dafb;
+.infoTemperature{
+  padding: 0px;
+  font-size: 120px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.infoMinMax{
+  font-size:45px;
 }
