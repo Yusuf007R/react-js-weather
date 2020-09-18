@@ -13,20 +13,41 @@ function Hourly(props) {
   const [datahour, setDatahour] = useState({});
   const [imgsvg, setImgsvg] = useState({});
   const [exactHour, setexactHour] = useState({});
-  const [hour, setHour] = useState();
 
   useEffect(() => {
-    if(props.data.hourly !== undefined){
-      setDatahour(props.data.hourly[props.hour])
-      setexactHour(props.hourFormatted)
-      setHour(parseInt(props.hour))
-      weather()
+    if (props.data.hourly !== undefined) {
+      setDatahour(props.data.hourly[props.hour]);
+      formatHour()
+      weather();
     }
-  }, [props.data,props.hour,props.hourFormatted]);
+  }, [props.data, props.hour, props.hourFormatted]);
 
-  const weather = () =>{
-    let sunrisexd = {sunrise:props.sunrie.sunrise,sunset:props.sunrie.sunset}
-    let img
+  
+  const formatHour = () => {
+    let i = parseInt(props.hourFormatted[0]);
+    let hour = { hour: i, ampm: null };
+    if (i > 12) {
+      let n = i-12;
+      hour = { hour: n, ampm: "pm" };
+    } else {
+      hour.ampm = "am";
+    }
+    hour.hour += parseInt(props.hour)
+    if (i > 12) {
+      let n = i-12;
+      hour = { hour: n, ampm: "pm" };
+    } else {
+      hour.ampm = "am";
+    }
+    setexactHour(hour)
+  };
+
+  const weather = () => {
+    let sunrisexd = {
+      sunrise: props.sunrie.sunrise,
+      sunset: props.sunrie.sunset,
+    };
+    let img;
     if (props.data.hourly[props.hour].weather[0].id < 300) {
       img = lightning_svg;
     } else if (props.data.hourly[props.hour].weather[0].id < 400) {
@@ -47,23 +68,23 @@ function Hourly(props) {
       } else {
         img = cloud_moon_svg;
       }
-  }
-  setImgsvg(img)
-}
+    }
+    setImgsvg(img);
+  };
 
   return (
     <div className="hourMainDiv">
-          {/* <button
-            onClick={(exd) => {
-              console.log(datahour);
-              console.log(props.sunrie);
-            }}
-          ></button>  */}
+      {/* <button
+        onClick={(exd) => {
+          console.log(datahour);
+          console.log(props.sunrie);
+        }}
+      ></button> */}
 
-        <h1 className="hour">{exactHour[0]}</h1>
+    <h1 className="hour">{exactHour.hour}{exactHour.ampm}</h1>
       <img className="hourSvg" src={imgsvg} alt="xd" />
-          <h2 className="hourTemp">{Math.round(datahour.temp)}</h2>
-    </div>  
+      <h2 className="hourTemp">{Math.round(datahour.temp)}°</h2>
+    </div>
   );
 }
 

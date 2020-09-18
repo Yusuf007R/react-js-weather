@@ -42,42 +42,30 @@ function App() {
     const rawDataHourly = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&%20&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`
     );
-    const rawTimeZoneData = await fetch(
-      `http://api.timezonedb.com/v2.1/get-time-zone?key=HC0PRN62BP60&format=json&by=position&lat=${data.coord.lat}&lng=${data.coord.lon}`
-    );
-    const timezoneData = await rawTimeZoneData.json();
-    const dataHourly = await rawDataHourly.json();
-    let exactHour = timezoneData.formatted.substr(11, timezoneData.formatted.length);
-    let exactDate = timezoneData.formatted.split(" ", 1)
-    exactDate = exactDate[0]
-    exactHour = exactHour.split(':');
-    exactDate = exactDate.split('-');
-    let temp = exactDate[1].split("0")
-    exactDate[1] = temp[1]
-
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    exactDate[1]= months[exactDate[1]-1]
-    console.log(exactDate)
-    console.log(exactHour)
-    setDate(exactDate)
-    setHour(exactHour)
-    // let hourxd = timezoneData.formatted.substr(
-    //   timezoneData.formatted.indexOf(" ") + 1
+    // const rawTimeZoneData = await fetch(
+    //   `http://api.timezonedb.com/v2.1/get-time-zone?key=HC0PRN62BP60&format=json&by=position&lat=${data.coord.lat}&lng=${data.coord.lon}`
     // );
-    // let date = new Date(timezoneData.formatted);
-    // let datexd =
-    //   date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
-
-    // console.log(datexd);
-    // console.log(date);
-    // console.log(timezoneData);
-    // var timeString = hourxd;
-    // var H = +timeString.substr(0, 2);
-    // var h = H % 12 || 12;
-    // var ampm = H < 12 || H === 24 ? "AM" : "PM";
-    // h = parseInt(h);
-    // timeString = { h: h, ampm: ampm };
-    // setHour(timeString);
+    // const timezoneData = await rawTimeZoneData.json();
+    // let exactHour = timezoneData.formatted.substr(11, timezoneData.formatted.length);
+    // let exactDate = timezoneData.formatted.split(" ", 1)
+    // exactDate = exactDate[0]
+    // exactHour = exactHour.split(':');
+    // exactDate = exactDate.split('-');
+    // let temp = exactDate[1].split("0")
+    // exactDate[1] = temp[1]
+    
+    // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    // exactDate[1]= months[exactDate[1]-1]
+    // setDate(exactDate)
+    // setHour(exactHour)
+    let d = new Date()
+    let i = d.getTimezoneOffset()*60
+    let xd = data.dt + data.timezone + i
+    console.log(xd)
+    var date = new Date(xd * 1000);
+    console.log(date)
+    console.log(data)
+    const dataHourly = await rawDataHourly.json();
     var sunrise = { sunrise: data.sys.sunrise, sunset: data.sys.sunset };
     setSunrise(sunrise);
     let img;
@@ -116,10 +104,8 @@ function App() {
       humidity: data.main.humidity,
       wind: data.wind.speed,
       hourly: dataHourly.hourly,
-    };
-    console.log(neededData);
+    };;
     setDataReact(neededData);
-    console.log(data);
     setWeatherImg(img);
   };
   return (
@@ -169,12 +155,6 @@ function App() {
               data={dataReact}
               sunrie={sunrisex}
               hourFormatted={hour}
-              hour="1"
-            />
-            <Hourly
-              data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
               hour="2"
             />
             <Hourly
@@ -200,6 +180,12 @@ function App() {
               sunrie={sunrisex}
               hourFormatted={hour}
               hour="6"
+            />
+            <Hourly
+              data={dataReact}
+              sunrie={sunrisex}
+              hourFormatted={hour}
+              hour="7"
             />
           </div>
         </div>
