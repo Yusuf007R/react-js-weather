@@ -23,8 +23,7 @@ function App() {
   ]);
   const [query, setQuery] = useState([]);
   const [weatherImg, setWeatherImg] = useState([]);
-  const [sunrisex, setSunrise] = useState([]);
-  const [hour, setHour] = useState({});
+  const [sunriseState, setSunrise] = useState([]);
   const [date, setDate] = useState([]);
   const searchcity = (evt) => {
     if (evt.key === "Enter") {
@@ -58,13 +57,13 @@ function App() {
     // exactDate[1]= months[exactDate[1]-1]
     // setDate(exactDate)
     // setHour(exactHour)
-    let d = new Date()
-    let i = d.getTimezoneOffset()*60
-    let xd = data.dt + data.timezone + i
-    console.log(xd)
-    var date = new Date(xd * 1000);
-    console.log(date)
-    console.log(data)
+    let tempDate = new Date()
+    var fullDate = new Date((data.dt + data.timezone + (tempDate.getTimezoneOffset()*60)) * 1000);
+    let days = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    let exactDate = [fullDate.getDate(),fullDate.getMonth(),fullDate.getFullYear(),days[fullDate.getDay()],months[fullDate.getMonth()+1]]
+    setDate(exactDate)
+    console.log(exactDate)
     const dataHourly = await rawDataHourly.json();
     var sunrise = { sunrise: data.sys.sunrise, sunset: data.sys.sunset };
     setSunrise(sunrise);
@@ -104,6 +103,7 @@ function App() {
       humidity: data.main.humidity,
       wind: data.wind.speed,
       hourly: dataHourly.hourly,
+      timezoneOffset:data.timezone
     };;
     setDataReact(neededData);
     setWeatherImg(img);
@@ -135,7 +135,7 @@ function App() {
               <h1 className="cityName">
                 {dataReact.city}, {dataReact.country}
               </h1>
-        <h3 className="date">{date[1]} {date[2]},{date[0]}</h3>
+        <h3 className="date">{date[3]} {date[0]} {date[4]}, {date[2]}</h3>
               <img className="svg" src={weatherImg} alt="x" />
               <h2 className="weatherDesc">{dataReact.description}</h2>
             </div>
@@ -153,38 +153,32 @@ function App() {
           <div className="hourlyDiv">
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="2"
             />
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="3"
             />
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="4"
             />
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="5"
             />
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="6"
             />
             <Hourly
               data={dataReact}
-              sunrie={sunrisex}
-              hourFormatted={hour}
+              sunrise={sunriseState}
               hour="7"
             />
           </div>

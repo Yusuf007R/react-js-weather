@@ -17,6 +17,7 @@ function Hourly(props) {
   useEffect(() => {
     if (props.data.hourly !== undefined) {
       setDatahour(props.data.hourly[props.hour]);
+      // console.log(props.data.hourly[props.hour])
       formatHour()
       weather();
     }
@@ -24,28 +25,28 @@ function Hourly(props) {
 
   
   const formatHour = () => {
-    let i = parseInt(props.hourFormatted[0]);
-    let hour = { hour: i, ampm: null };
-    if (i > 12) {
-      let n = i-12;
-      hour = { hour: n, ampm: "pm" };
-    } else {
-      hour.ampm = "am";
+    let tempDate = new Date()
+    var fullDate = new Date((props.data.hourly[props.hour].dt + props.data.timezoneOffset + (tempDate.getTimezoneOffset()*60)) * 1000);
+    let hour = {hour:fullDate.getHours(),ampm:null}
+    if(hour.hour === 0){
+      hour.hour = 12 
+      hour.ampm = "AM"
     }
-    hour.hour += parseInt(props.hour)
-    if (i > 12) {
-      let n = i-12;
-      hour = { hour: n, ampm: "pm" };
-    } else {
-      hour.ampm = "am";
+    else if(hour.hour>12){
+      hour.hour -=12
+      hour.ampm = "PM"
     }
+    else{
+      hour.ampm = "AM"
+    }
+   console.log(fullDate.getHours())
     setexactHour(hour)
   };
 
   const weather = () => {
     let sunrisexd = {
-      sunrise: props.sunrie.sunrise,
-      sunset: props.sunrie.sunset,
+      sunrise: props.sunrise.sunrise,
+      sunset: props.sunrise.sunset,
     };
     let img;
     if (props.data.hourly[props.hour].weather[0].id < 300) {
@@ -77,7 +78,7 @@ function Hourly(props) {
       {/* <button
         onClick={(exd) => {
           console.log(datahour);
-          console.log(props.sunrie);
+          console.log(props.sunrise);
         }}
       ></button> */}
 
