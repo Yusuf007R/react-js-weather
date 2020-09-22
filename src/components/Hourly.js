@@ -7,14 +7,18 @@ function Hourly(props) {
   const [datahour, setDatahour] = useState({});
   const [exactHour, setexactHour] = useState({});
   const [weatherInfo, setWeatherInfo] = useState({});
-  
+
   useEffect(() => {
     if (props.data.hourly !== undefined) {
       setDatahour(props.data.hourly[props.hour]);
       formatHour();
-      setWeatherInfo({sunset:props.sunrise.sunset,sunrise:props.sunrise.sunrise,id:props.data.hourly[props.hour].weather[0].id})
+      setWeatherInfo({
+        sunset: props.sunrise.sunset,
+        sunrise: props.sunrise.sunrise,
+        id: props.data.hourly[props.hour].weather[0].id,
+      });
     }
-         // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props.data, props.hour, props.hourFormatted]);
 
   const formatHour = () => {
@@ -40,30 +44,24 @@ function Hourly(props) {
   };
 
   return props.data.hourly !== undefined ? (
-    <Animated
-    animationIn="bounceIn"
-    isVisible={true}
-  >
-    <div className="hourMainDiv">
-      <h1 className="hour">
-        {exactHour.hour}
-        {exactHour.ampm}
-      </h1>
-      <WeatherSVG
-        dt={datahour.dt}
-        sunset={weatherInfo.sunset}
-        sunrise={weatherInfo.sunrise}
-        id={weatherInfo.id}
-      />
-      <h2 className="hourTemp">{Math.round(datahour.temp)}°</h2>
-    </div>
+    <Animated animationIn="bounceIn" isVisible={true}>
+      <div className="hourMainDiv">
+        <h1 className="hour">
+          {exactHour.hour}
+          {exactHour.ampm}
+        </h1>
+        <WeatherSVG
+          dt={datahour.dt}
+          sunset={weatherInfo.sunset}
+          sunrise={weatherInfo.sunrise}
+          id={weatherInfo.id}
+        />
+        <h2 className="hourTemp">{Math.round(datahour.temp)}°</h2>
+      </div>
     </Animated>
-
-  ):(
-    <div>
-
-    </div>
-  )
+  ) : (
+    <div></div>
+  );
 }
 
 export default Hourly;

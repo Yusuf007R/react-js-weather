@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import Hourly from "./components/Hourly.js";
-import CityInfo from "./components/CityInfo.js";
-import TemperatureInfo from "./components/TemperatureInfo.js";
-import Error from "./components/Error.js";
+import React, { useState, useEffect } from 'react';
+import '../App.css';
+import Hourly from './Hourly.js';
+import CityInfo from './CityInfo.js';
+import TemperatureInfo from './TemperatureInfo.js';
+import Error from './Error.js';
+
 function Weather(props) {
   const [dataReact, setDataReact] = useState({});
   const [sunriseState, setSunrise] = useState();
@@ -12,55 +13,56 @@ function Weather(props) {
 
   useEffect(() => {
     if (props.query != null) {
-      getData()
+      getData();
     }
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props.query]);
 
   const getData = async () => {
-    setError(false)
+    setError(false);
     const rawData = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${props.query}&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`
+      `http://api.openweathermap.org/data/2.5/weather?q=${props.query}&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`,
     );
     const data = await rawData.json();
-    if(data.cod === '404'){
-      setError(true)
-      setTimeout(()=>{
-      setError(false)
-      },1000)
-      return
+    if (parseInt(data.cod) >= 400) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 1000);
+      return;
     }
+
     const rawDataHourly = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&%20&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&%20&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`,
     );
-    let tempDate = new Date();
-    var fullDate = new Date(
-      (data.dt + data.timezone + tempDate.getTimezoneOffset() * 60) * 1000
+    const tempDate = new Date();
+    const fullDate = new Date(
+      (data.dt + data.timezone + tempDate.getTimezoneOffset() * 60) * 1000,
     );
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
     ];
-    let months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
-    let exactDate = [
+    const exactDate = [
       fullDate.getDate(),
       fullDate.getMonth(),
       fullDate.getFullYear(),
@@ -70,7 +72,7 @@ function Weather(props) {
     setDate(exactDate);
 
     const dataHourly = await rawDataHourly.json();
-    var sunrise = { sunrise: data.sys.sunrise, sunset: data.sys.sunset };
+    const sunrise = { sunrise: data.sys.sunrise, sunset: data.sys.sunset };
     setSunrise(sunrise);
     const neededData = {
       city: data.name,
@@ -86,23 +88,22 @@ function Weather(props) {
       wind: data.wind.speed,
       hourly: dataHourly.hourly,
       timezoneOffset: data.timezone,
-      dt:data.dt,
-      sunrise:data.sys.sunrise,
-      sunst:data.sys.sunset
+      dt: data.dt,
+      sunrise: data.sys.sunrise,
+      sunst: data.sys.sunset,
     };
     setDataReact(neededData);
   };
 
-
   return (
     <div>
       <div className="mainInfo">
-        <Error error={error}/> 
+        <Error error={error} />
         <div className="mainInfoTLXD">
           <CityInfo date={date} data={dataReact} />
         </div>
         <div className="mainInfoTRXD">
-          <TemperatureInfo data={dataReact}/>
+          <TemperatureInfo data={dataReact} />
         </div>
       </div>
       <div className="hourlyDiv">
@@ -114,8 +115,7 @@ function Weather(props) {
         <Hourly data={dataReact} sunrise={sunriseState} hour="7" />
       </div>
     </div>
-  )
-
+  );
 }
 
 export default Weather;
