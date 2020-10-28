@@ -21,7 +21,7 @@ function Weather(props) {
   const getData = async () => {
     setError(false);
     const rawData = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${props.query}&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${props.query}&appid=3803f6a6a3d667409ef82e45fd337af5&units=metric`,
     );
     const data = await rawData.json();
     if (parseInt(data.cod) >= 400) {
