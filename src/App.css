@@ -162,6 +162,7 @@ p {
   align-items: center;
   justify-content: center;
   background-blend-mode: darken;
+  overflow: hidden;
 }
 
 .mainDiv {
